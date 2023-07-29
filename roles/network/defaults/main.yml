@@ -1,0 +1,30 @@
+# roles/network/defaults/main.yml
+interface_type: "bond"  # Available options: "bond", "standard"
+include_dummy_interface: false
+
+bond_interface: "bond0"
+bond_mode: "802.3ad"
+bond_miimon: 100
+bond_downdelay: 200
+bond_updelay: 200
+bond_xmit_hash_policy: "encap3+4"
+bond_ip: "BOND_IP_ADDRESS"
+bond_netmask: "BOND_NETMASK"
+bond_gateway: "BOND_GATEWAY"
+bond_dns_servers:
+  - "DNS1_IP"
+
+standard_interface: "eth0"
+standard_ip: "STANDARD_IP_ADDRESS"
+standard_netmask: "STANDARD_NETMASK"
+standard_gateway: "STANDARD_GATEWAY"
+standard_dns_servers:
+  - "STANDARD_DNS1"
+
+dummy_interface: "dummy0"
+dummy_ip: "DUMMY_IP_ADDRESS"
+dummy_netmask: "DUMMY_NETMASK"
+
+interfaces_txqueuelen:
+  1000
+  2000

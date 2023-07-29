@@ -1,0 +1,14 @@
+[web_servers]
+webserver1 ansible_host=192.168.1.101 ansible_user=user1
+
+webserver2 ansible_host=192.168.1.102 ansible_user=user2
+
+[database_servers]
+dbserver1 ansible_host=192.168.1.201 ansible_user=user1
+
+[all_servers:children]
+web_servers
+database_servers
+
+[local]
+localhost ansible_connection=local

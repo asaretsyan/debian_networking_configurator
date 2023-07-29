@@ -1,0 +1,7 @@
+- name: Configure network interfaces
+  hosts: local
+  become: yes
+  roles:
+    - network
+
+# ansible-playbook -i inventory/hosts site.yml -e "bond_ip=192.168.0.10 bond_netmask=255.255.255.0 dummy_ip=10.0.0.1 dummy_netmask=255.0.0.0"

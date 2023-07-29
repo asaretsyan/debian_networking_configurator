@@ -1,0 +1,45 @@
+# roles/network/templates/interfaces.j2
+auto lo
+iface lo inet loopback
+
+{% if interface_type == "bond" %}
+auto {{ bond_interface }}
+iface {{ bond_interface }} inet static
+  slaves {{ bond_slaves | join(' ') }}
+  bond-mode {{ bond_mode }}
+  bond-miimon {{ bond_miimon }}
+  bond-downdelay {{ bond_downdelay }}
+  bond-updelay {{ bond_updelay }}
+  bond-xmit-hash-policy {{ bond_xmit_hash_policy }}
+  address {{ bond_ip }}
+  netmask {{ bond_netmask }}
+  gateway {{ bond_gateway }}
+  {% for dns_server in bond_dns_servers %}
+  dns-nameservers {{ dns_server }}
+  {% endfor %}
+{% else %}
+auto {{ standard_interface }}
+iface {{ standard_interface }} inet static
+  address {{ standard_ip }}
+  netmask {{ standard_netmask }}
+  gateway {{ standard_gateway }}
+  {% for dns_server in standard_dns_servers %}
+  dns-nameservers {{ dns_server }}
+  {% endfor %}
+{% endif %}
+
+{% if include_dummy_interface %}
+auto {{ dummy_interface }}
+iface {{ dummy_interface }} inet static
+  pre-up /sbin/ip link add $IFACE type dummy
+  post-down /sbin/ip link delete $IFACE
+  address {{ dummy_ip }}
+  netmask {{ dummy_netmask }}
+{% endif %}
+
+{% if interface_type == "bond" %}
+{% for interface, txqueuelen in bond_slaves | zip(interfaces_txqueuelen) %}
+post-up /sbin/ifconfig {{ interface }} txqueuelen {{ txqueuelen }}
+{% endfor %}
+{% endif %}
+

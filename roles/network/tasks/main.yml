@@ -1,0 +1,18 @@
+# roles/network/tasks/main.yml
+- name: Configure network interfaces
+  template:
+    src: interfaces.j2
+    dest: /etc/network/interfaces
+  notify: Restart network
+
+- name: Ensure network service is running
+  service:
+    name: networking
+    state: started
+    enabled: yes
+
+- name: Ensure dummy kernel module is loaded
+  modprobe:
+    name: dummy
+    state: present
+  when: include_dummy_interface
