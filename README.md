@@ -15,5 +15,4 @@
 ## Пример запуска
 <code>ansible-playbook -i inventory/hosts site.yml -e "bond_ip=192.168.0.10 bond_netmask=255.255.255.0 dummy_ip=10.0.0.1 dummy_netmask=255.0.0.0 bond_slaves={{ ['eth3', 'eth5'] }} interfaces_txqueuelen={{ [1000, 2000] }} bond_dns_servers={{ ['8.8.8.8', '9.9.9.9'] }} bond_gateway=192.168.0.254"</code>
 
-## Пример запуска
-<code>ansible-playbook -i inventory/hosts site.yml -e "bond_ip=192.168.0.10 bond_netmask=255.255.255.0 dummy_ip=10.0.0.1 dummy_netmask=255.0.0.0 bond_slaves={{ ['eth3', 'eth5'] }} interfaces_txqueuelen={{ [1000, 2000] }} bond_dns_servers={{ ['8.8.8.8', '9.9.9.9'] }} bond_gateway=192.168.0.254"</code>
+
